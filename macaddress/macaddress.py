@@ -1,4 +1,5 @@
 from .utils import clamp
+from .utils import parse_hex
 
 
 def mac_address(value=0):
@@ -13,7 +14,12 @@ class MacAddress:
         self.value = self._normalize_value(value)
 
     def _normalize_value(self, value):
-        return clamp(value, self.max_value)
+        if isinstance(value, str):
+            value_int = parse_hex(value)
+        else:
+            value_int = value
+
+        return clamp(value_int, self.max_value)
 
     @property
     def max_value(self):
