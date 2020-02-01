@@ -10,3 +10,6 @@ class test_MacAddress(unittest.TestCase):
     def test_mac_to_string(self):
         mac = macaddress.mac_address(0)
         self.assertEqual(str(mac), '00:00:00:00:00:00')
+
+        mac = macaddress.mac_address(1)
+        self.assertEqual(str(mac), '00:00:00:00:00:01')
