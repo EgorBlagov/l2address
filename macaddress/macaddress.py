@@ -11,7 +11,7 @@ class MacAddress:
         self.value = value
 
     def __str__(self):
-        value_str = str(self.value)
+        value_str = str(hex(self.value))[2:]
         full_mac_str = '0' * (MAX_HEXADECIMAL_DIGITS -
                               len(value_str)) + value_str
         split_by_colons = ':'.join([full_mac_str[2*i:2*i+2] for i in range(6)])
