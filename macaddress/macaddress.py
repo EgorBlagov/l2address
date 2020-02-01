@@ -25,3 +25,6 @@ class MacAddress:
                               len(value_str)) + value_str
         split_by_colons = ':'.join([full_mac_str[2*i:2*i+2] for i in range(6)])
         return split_by_colons
+
+    def __int__(self):
+        return self.value

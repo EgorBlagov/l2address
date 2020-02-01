@@ -38,3 +38,18 @@ class test_MacAddress(unittest.TestCase):
     def test_mac_max_value(self):
         mac = macaddress.mac_address(0)
         self.assertEqual(mac.max_value, 0xffffffffffff)
+
+    def test_mac_to_int(self):
+        test_data = {
+            0: 0,
+            1: 1,
+            0xffff: 0xffff,
+            0x1000000000000: 0,
+            -1: 0xffffffffffff,
+            -0xff: 0xffffffffff01
+        }
+
+        for number, expected in test_data.items():
+            mac = macaddress.mac_address(number)
+            self.assertEqual(int(mac), expected,
+                             'Number: {} (hex: {})'.format(number, number))
