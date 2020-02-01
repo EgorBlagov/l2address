@@ -53,3 +53,7 @@ class test_MacAddress(unittest.TestCase):
             mac = macaddress.mac_address(number)
             self.assertEqual(int(mac), expected,
                              'Number: {} (hex: {})'.format(number, number))
+
+    def test_mac_sum_with_int(self):
+        self.assertEqual(int(macaddress.mac_address(0) + 1), 1)
+        self.assertEqual(int(macaddress.mac_address(0xffffffffffff) + 1), 0)

@@ -28,3 +28,6 @@ class MacAddress:
 
     def __int__(self):
         return self.value
+
+    def __add__(self, val):
+        return MacAddress(self.value + val)
