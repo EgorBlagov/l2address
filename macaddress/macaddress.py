@@ -34,3 +34,6 @@ class MacAddress:
 
     def __radd__(self, val):
         return self + val
+
+    def __sub__(self, val):
+        return self + int(val)*(-1)

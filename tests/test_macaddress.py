@@ -64,3 +64,7 @@ class test_MacAddress(unittest.TestCase):
     def test_mac_sum_with_mac(self):
         self.assertEqual(int(macaddress.mac_address(0xf) +
                              macaddress.mac_address(0xf0)), 0xff)
+
+    def test_mac_sub_with_int(self):
+        self.assertEqual(int(macaddress.mac_address(0) - 1), 0xffffffffffff)
+        self.assertEqual(int(macaddress.mac_address(0xff) - 0xf), 0xf0)
