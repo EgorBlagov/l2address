@@ -16,6 +16,8 @@ class MacAddress:
     def _normalize_value(self, value):
         if isinstance(value, str):
             value_int = parse_hex(value)
+        elif isinstance(value, MacAddress):
+            value_int = value.value
         else:
             value_int = value
 
@@ -36,13 +38,13 @@ class MacAddress:
         return self.value
 
     def __add__(self, val):
-        return MacAddress(self.value + int(val))
+        return MacAddress(self.value + int(MacAddress(val)))
 
     def __radd__(self, val):
         return self + val
 
     def __sub__(self, val):
-        return self + int(val)*(-1)
+        return self + int(MacAddress(val))*(-1)
 
     def __eq__(self, rhs):
         return isinstance(rhs, MacAddress) and self.value == rhs.value

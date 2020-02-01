@@ -51,3 +51,16 @@ class test_macaddress_str(unittest.TestCase):
             macaddress.PERIOD_QUADRIPLET_FORMATTER), '0000.0000.0000')
         self.assertEqual(macaddress.mac_address().to_str(
             macaddress.CLEAN_FORMATTER), '000000000000')
+
+    def test_sum_with_str(self):
+        self.assertEqual(macaddress.mac_address() +
+                         '00:00:00:00:ff:00', macaddress.mac_address(0xff00))
+
+        self.assertEqual(macaddress.mac_address(0xffffffffffff) +
+                         '00:00:00:00:00:01', macaddress.mac_address())
+
+    def test_sub_with_str(self):
+        self.assertEqual(macaddress.mac_address() -
+                         '00:00:00:00:00:ff', macaddress.mac_address(0xffffffffff01))
+        self.assertEqual(macaddress.mac_address(0xffff) -
+                         '00:00:00:00:00:ff', macaddress.mac_address(0xff00))

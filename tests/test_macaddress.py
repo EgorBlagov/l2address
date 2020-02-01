@@ -97,3 +97,7 @@ class test_MacAddress(unittest.TestCase):
 
         _set = {macaddress.mac_address(), 0}
         self.assertEqual(len(_set), 2)
+
+    def test_self_casting(self):
+        self.assertEqual(macaddress.mac_address(15),
+                         macaddress.mac_address(macaddress.mac_address(15)))
