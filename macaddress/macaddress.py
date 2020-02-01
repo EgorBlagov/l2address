@@ -40,3 +40,6 @@ class MacAddress:
 
     def __eq__(self, rhs):
         return isinstance(rhs, MacAddress) and self.value == rhs.value
+
+    def __hash__(self):
+        return hash(self.value)

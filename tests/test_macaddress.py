@@ -90,3 +90,10 @@ class test_MacAddress(unittest.TestCase):
                             macaddress.mac_address(0xff))
 
         self.assertNotEqual(macaddress.mac_address(), 0)
+
+    def test_hashing(self):
+        _set = {macaddress.mac_address(), macaddress.mac_address()}
+        self.assertEqual(len(_set), 1)
+
+        _set = {macaddress.mac_address(), 0}
+        self.assertEqual(len(_set), 2)
