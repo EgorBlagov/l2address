@@ -64,3 +64,19 @@ class test_macaddress_str(unittest.TestCase):
                          '00:00:00:00:00:ff', macaddress.mac_address(0xffffffffff01))
         self.assertEqual(macaddress.mac_address(0xffff) -
                          '00:00:00:00:00:ff', macaddress.mac_address(0xff00))
+
+    @unittest.expectedFailure
+    def test_sum_and_sub_with_invalid_str(self):
+        test_data = [
+            'abc',
+            '-1-2-3-',
+            '-ffaabb',
+            'abcd.abcd.aa:bb',
+        ]
+
+        for _str in test_data:
+            with self.assertRaisesRegex(ValueError, r'Invalid MAC address format'):
+                macaddress.mac_address() + _str
+
+            with self.assertRaisesRegex(ValueError, r'Invalid MAC address format'):
+                macaddress.mac_address() - _str
