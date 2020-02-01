@@ -68,3 +68,13 @@ class test_MacAddress(unittest.TestCase):
     def test_mac_sub_with_int(self):
         self.assertEqual(int(macaddress.mac_address(0) - 1), 0xffffffffffff)
         self.assertEqual(int(macaddress.mac_address(0xff) - 0xf), 0xf0)
+
+    def test_mac_sub_int_with_mac(self):
+        with self.assertRaises(TypeError):  # meaningless
+            int(10 - macaddress.mac_address(0))
+
+    def test_mac_sub_mac(self):
+        self.assertEqual(int(macaddress.mac_address(0xff) -
+                             macaddress.mac_address(0xf0)), 0xf)
+        self.assertEqual(int(macaddress.mac_address(
+            0) - macaddress.mac_address(1)), 0xffffffffffff)
