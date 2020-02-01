@@ -1,7 +1,7 @@
 from .utils import clamp
 
 
-def mac_address(value):
+def mac_address(value=0):
     return MacAddress(value)
 
 
@@ -37,3 +37,6 @@ class MacAddress:
 
     def __sub__(self, val):
         return self + int(val)*(-1)
+
+    def __eq__(self, rhs):
+        return isinstance(rhs, MacAddress) and self.value == rhs.value

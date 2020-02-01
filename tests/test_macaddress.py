@@ -78,3 +78,15 @@ class test_MacAddress(unittest.TestCase):
                              macaddress.mac_address(0xf0)), 0xf)
         self.assertEqual(int(macaddress.mac_address(
             0) - macaddress.mac_address(1)), 0xffffffffffff)
+
+    def test_default_constructor(self):
+        self.assertEqual(int(macaddress.mac_address()), 0)
+
+    def test_equality(self):
+        self.assertEqual(macaddress.mac_address(0), macaddress.mac_address(0))
+        self.assertEqual(macaddress.mac_address(
+            0x1000000000000), macaddress.mac_address(0))
+        self.assertNotEqual(macaddress.mac_address(),
+                            macaddress.mac_address(0xff))
+
+        self.assertNotEqual(macaddress.mac_address(), 0)
