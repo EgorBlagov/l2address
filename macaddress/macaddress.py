@@ -4,4 +4,5 @@ def mac_address(value):
 
 
 class MacAddress:
-    pass
+    def __str__(self):
+        return '00:00:00:00:00:00'
