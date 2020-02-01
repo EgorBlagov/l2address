@@ -38,4 +38,4 @@ At the current moment supports:
 - Validation of format when parsing from string
 - Multiplication by int
 - Different lengths of MAC address (there are 64 bit MAC addesses I believe)
-- Prepare as PyPi package (hence rename it, because there is a placeholder already)
+- Prepare as PyPi package (hence rename it, because there is a placeholder already, I think `l2address` can work)
