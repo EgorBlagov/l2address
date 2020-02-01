@@ -30,7 +30,7 @@ class MacAddress:
         return self.value
 
     def __add__(self, val):
-        return MacAddress(self.value + val)
+        return MacAddress(self.value + int(val))
 
     def __radd__(self, val):
         return self + val
