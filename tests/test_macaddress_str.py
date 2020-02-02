@@ -20,7 +20,6 @@ class test_macaddress_str(unittest.TestCase):
             self.assertEqual(str(macaddress.mac_address(data)),
                              expected, 'String: {}'.format(data))
 
-    @unittest.expectedFailure
     def test_mac_invalid_str_format(self):
         test_data = [
             '00-aa-bb',

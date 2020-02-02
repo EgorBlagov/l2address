@@ -1,6 +1,6 @@
 from .utils import clamp
 from .utils import parse_hex
-from .formatter import COLON_FORMATTER
+from .formatter import FORMATTER_LIBRARY
 
 
 def mac_address(value=0):
@@ -16,7 +16,7 @@ class MacAddress:
 
     def _normalize_value(self, value):
         if isinstance(value, str):
-            value_int = parse_hex(value)
+            value_int = FORMATTER_LIBRARY.parse(value, self.max_value)
         elif isinstance(value, MacAddress):
             value_int = value.value
         else:
@@ -28,7 +28,7 @@ class MacAddress:
     def max_value(self):
         return pow(0x10, MAX_HEXADECIMAL_DIGITS) - 1
 
-    def to_str(self, formatter=COLON_FORMATTER):
+    def to_str(self, formatter=FORMATTER_LIBRARY.default_formatter):
         return formatter.format(self.value, self.max_value)
 
     def __str__(self):
