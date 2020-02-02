@@ -1,6 +1,7 @@
 import unittest
 from macaddress.utils import clamp
 from macaddress.utils import parse_hex
+from macaddress.utils import per_join
 
 
 class test_utils(unittest.TestCase):
@@ -25,3 +26,11 @@ class test_utils(unittest.TestCase):
         for _str, expected in test_data.items():
             self.assertEqual(parse_hex(_str), expected,
                              'String: {}'.format(_str))
+
+    def test_per_join(self):
+        self.assertEqual(per_join('abc', ':'), 'a:b:c')
+        self.assertEqual(per_join('abc', ':', 3), 'abc')
+        self.assertEqual(per_join('abc', ':', 2), 'ab:c')
+        self.assertEqual(per_join('aaaabbbbcc', '.', 4), 'aaaa.bbbb.cc')
+        self.assertEqual(per_join('', 'aaaa'), '')
+        self.assertEqual(per_join('abcde', '0ab', 2), 'ab0abcd0abe')

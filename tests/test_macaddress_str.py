@@ -35,7 +35,6 @@ class test_macaddress_str(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, r'Invalid MAC address format'):
                 macaddress.mac_address(data)
 
-    @unittest.expectedFailure
     def test_mac_string_format_style(self):
         self.assertEqual(macaddress.mac_address().to_str(),
                          '00:00:00:00:00:00')

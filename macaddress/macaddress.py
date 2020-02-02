@@ -1,5 +1,6 @@
 from .utils import clamp
 from .utils import parse_hex
+from .formatter import COLON_FORMATTER
 
 
 def mac_address(value=0):
@@ -27,12 +28,11 @@ class MacAddress:
     def max_value(self):
         return pow(0x10, MAX_HEXADECIMAL_DIGITS) - 1
 
+    def to_str(self, formatter=COLON_FORMATTER):
+        return formatter.format(self.value, self.max_value)
+
     def __str__(self):
-        value_str = str(hex(self.value))[2:]
-        full_mac_str = '0' * (MAX_HEXADECIMAL_DIGITS -
-                              len(value_str)) + value_str
-        split_by_colons = ':'.join([full_mac_str[2*i:2*i+2] for i in range(6)])
-        return split_by_colons
+        return self.to_str()
 
     def __int__(self):
         return self.value
