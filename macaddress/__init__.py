@@ -1,2 +1,3 @@
+from .formatter import (CleanFormatter, ColonFormatter, Formatter,
+                        HyphenFormatter, PeriodFormatter)
 from .macaddress import mac_address
-from .formatter import COLON_FORMATTER, PERIOD_FORMATTER, HYPHEN_FORMATTER, PERIOD_TRIPLET_FORMATTER, PERIOD_QUADRIPLET_FORMATTER, CLEAN_FORMATTER

@@ -4,35 +4,7 @@ from abc import ABC, abstractmethod
 from .utils import parse_hex, per_join
 
 
-class FormatterLibrary:
-    def __init__(self):
-        self.formatters = []
-
-    @property
-    def default_formatter(self):
-        return self.formatters[0]
-
-    def register(self, formatter):
-        if formatter not in self.formatters:
-            self.formatters.append(formatter)
-
-    def parse(self, _str, max_value):
-        for each in self.formatters:
-            try:
-                return each.parse(_str, max_value)
-            except ValueError:
-                pass
-
-        raise ValueError('Invalid MAC address format')
-
-
-FORMATTER_LIBRARY = FormatterLibrary()
-
-
 class Formatter(ABC):
-    def __init__(self):
-        FORMATTER_LIBRARY.register(self)
-
     def _to_clean_str(self, value, max_value):
         value_str = str(hex(value))[2:]
         full_mac_str = '0' * (self._hex_digits_count(max_value) -
@@ -54,7 +26,10 @@ class Formatter(ABC):
         if m is None:
             raise ValueError('Invalid MAC address format')
         else:
-            return parse_hex(_str)
+            return self._parse_value_from_str(_str)
+
+    def _parse_value_from_str(self, _str):
+        return parse_hex(_str)
 
     @abstractmethod
     def _get_validator_regexp(self, _str, max_value):
@@ -97,9 +72,11 @@ class CleanFormatter(Formatter):
         return self._common_regex(max_value, '', 2)
 
 
-COLON_FORMATTER = ColonFormatter()
-PERIOD_FORMATTER = PeriodFormatter()
-HYPHEN_FORMATTER = HyphenFormatter()
-PERIOD_TRIPLET_FORMATTER = PeriodFormatter(3)
-PERIOD_QUADRIPLET_FORMATTER = PeriodFormatter(4)
-CLEAN_FORMATTER = CleanFormatter()
+DEFAULT_FORMATTERS = [
+    ColonFormatter(),
+    PeriodFormatter(2),
+    PeriodFormatter(3),
+    PeriodFormatter(4),
+    HyphenFormatter(),
+    CleanFormatter()
+]
