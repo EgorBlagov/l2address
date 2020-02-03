@@ -1,4 +1,5 @@
 import unittest
+
 import macaddress
 
 
@@ -101,3 +102,7 @@ class test_MacAddress(unittest.TestCase):
     def test_self_casting(self):
         self.assertEqual(macaddress.mac_address(15),
                          macaddress.mac_address(macaddress.mac_address(15)))
+
+    def test_invalid_value_on_create(self):
+        with self.assertRaisesRegex(ValueError, 'Invalid value to create MAC'):
+            macaddress.mac_address([123])

@@ -19,8 +19,10 @@ class MacAddress:
             value_int = self._parse(value)
         elif isinstance(value, MacAddress):
             value_int = value.value
-        else:
+        elif isinstance(value, int):
             value_int = value
+        else:
+            raise ValueError('Invalid value to create MAC address')
 
         return clamp(value_int, self.max_value)
 
