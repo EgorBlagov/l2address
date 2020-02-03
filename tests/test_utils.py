@@ -1,7 +1,6 @@
 import unittest
-from macaddress.utils import clamp
-from macaddress.utils import parse_hex
-from macaddress.utils import per_join
+
+from macaddress.utils import clamp, parse_hex, per_join
 
 
 class test_utils(unittest.TestCase):
@@ -34,3 +33,7 @@ class test_utils(unittest.TestCase):
         self.assertEqual(per_join('aaaabbbbcc', '.', 4), 'aaaa.bbbb.cc')
         self.assertEqual(per_join('', 'aaaa'), '')
         self.assertEqual(per_join('abcde', '0ab', 2), 'ab0abcd0abe')
+
+    def test_per_join_iterible(self):
+        self.assertEqual(
+            per_join(['abc', 'def', 'bbb', 'aaa'], '-', 2), 'abcdef-bbbaaa')

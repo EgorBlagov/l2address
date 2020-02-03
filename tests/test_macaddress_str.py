@@ -1,4 +1,5 @@
 import unittest
+
 import macaddress
 
 
@@ -20,7 +21,6 @@ class test_macaddress_str(unittest.TestCase):
             self.assertEqual(str(macaddress.mac_address(data)),
                              expected, 'String: {}'.format(data))
 
-    @unittest.expectedFailure
     def test_mac_invalid_str_format(self):
         test_data = [
             '00-aa-bb',
@@ -32,24 +32,24 @@ class test_macaddress_str(unittest.TestCase):
         ]
 
         for data in test_data:
-            with self.assertRaisesRegex(ValueError, r'Invalid MAC address format'):
+            with self.assertRaisesRegex(ValueError, r'Invalid MAC address format', msg="String: {}".format(data)):
                 macaddress.mac_address(data)
 
     def test_mac_string_format_style(self):
         self.assertEqual(macaddress.mac_address().to_str(),
                          '00:00:00:00:00:00')
         self.assertEqual(macaddress.mac_address().to_str(
-            macaddress.COLON_FORMATTER), '00:00:00:00:00:00')
+            macaddress.ColonFormatter()), '00:00:00:00:00:00')
         self.assertEqual(macaddress.mac_address().to_str(
-            macaddress.PERIOD_FORMATTER), '00.00.00.00.00.00')
+            macaddress.PeriodFormatter()), '00.00.00.00.00.00')
         self.assertEqual(macaddress.mac_address().to_str(
-            macaddress.HYPHEN_FORMATTER), '00-00-00-00-00-00')
+            macaddress.HyphenFormatter()), '00-00-00-00-00-00')
         self.assertEqual(macaddress.mac_address().to_str(
-            macaddress.PERIOD_TRIPLET_FORMATTER), '000.000.000.000')
+            macaddress.PeriodFormatter(3)), '000.000.000.000')
         self.assertEqual(macaddress.mac_address().to_str(
-            macaddress.PERIOD_QUADRIPLET_FORMATTER), '0000.0000.0000')
+            macaddress.PeriodFormatter(4)), '0000.0000.0000')
         self.assertEqual(macaddress.mac_address().to_str(
-            macaddress.CLEAN_FORMATTER), '000000000000')
+            macaddress.CleanFormatter()), '000000000000')
 
     def test_sum_with_str(self):
         self.assertEqual(macaddress.mac_address() +
@@ -64,7 +64,6 @@ class test_macaddress_str(unittest.TestCase):
         self.assertEqual(macaddress.mac_address(0xffff) -
                          '00:00:00:00:00:ff', macaddress.mac_address(0xff00))
 
-    @unittest.expectedFailure
     def test_sum_and_sub_with_invalid_str(self):
         test_data = [
             'abc',
