@@ -1,4 +1,4 @@
-# macaddress
+# l2address
 
 Micro library I'm planing to develop by using TDD approach, just to try it.
 
@@ -6,22 +6,22 @@ Micro library I'm planing to develop by using TDD approach, just to try it.
 
 ```python
 
-import macaddress
+import l2address
 
-mac = macaddress.mac_address(0xff00ff)
+mac = l2address.mac_address(0xff00ff)
 print(mac)
 # 00:00:00:ff:00:ff
 mac += 0xff00
 print(mac)
 # 00:00:00:ff:ff:ff
-mac -= macaddress.mac_address('00:00:00:ff:ff:f0')
+mac -= l2address.mac_address('00:00:00:ff:ff:f0')
 print(mac)
 # 00:00:00:00:00:0f
-print(mac == macaddress.mac_address(0xf))
+print(mac == l2address.mac_address(0xf))
 # True
-print(macaddress.mac_address('ffffffffffff') + 1)
+print(l2address.mac_address('ffffffffffff') + 1)
 # 00:00:00:00:00:00
-print(macaddress.mac_address(0xff, macaddress.PeriodFormatter(4)))
+print(l2address.mac_address(0xff, l2address.PeriodFormatter(4)))
 # 0000.0000.00ff
 ```
 
@@ -39,13 +39,13 @@ At the current moment supports:
 ## Extending Formats
 
 ```python
-import macaddress
-from macaddress.utils import per_join
+import l2address
+from l2address.utils import per_join
 
-# Just inherit macaddress.Formatter and use new formatter
+# Just inherit l2address.Formatter and use new formatter
 
 
-class MyMacStarFormatter(macaddress.Formatter):
+class MyMacStarFormatter(l2address.Formatter):
     def format(self, value, max_value):
         return per_join(self._to_clean_str(value, max_value), '*', 2)
 
@@ -54,17 +54,17 @@ class MyMacStarFormatter(macaddress.Formatter):
 
 
 try:
-    macaddress.mac_address('AB*ab*bc*de*ff*ff')
+    l2address.mac_address('AB*ab*bc*de*ff*ff')
 except ValueError:
     print('Failed as expected')
     # Failed as expected
 
-mac = macaddress.mac_address('AB*ab*bc*de*ff*ff', MyMacStarFormatter())
+mac = l2address.mac_address('AB*ab*bc*de*ff*ff', MyMacStarFormatter())
 print(mac)
 # ab*ab*bc*de*ff*ff
-print(mac.to_str(macaddress.ColonFormatter()))
+print(mac.to_str(l2address.ColonFormatter()))
 # ab:ab:bc:de:ff:ff
-print(macaddress.mac_address(0xff).to_str(MyMacStarFormatter()))
+print(l2address.mac_address(0xff).to_str(MyMacStarFormatter()))
 # 00*00*00*00*00*ff
 ```
 
@@ -72,4 +72,3 @@ print(macaddress.mac_address(0xff).to_str(MyMacStarFormatter()))
 
 - Multiplication by int
 - Different lengths of MAC address (there are 64 bit MAC addesses I believe)
-- Prepare as PyPi package (hence rename it, because there is a placeholder already, I think `l2address` can work)

@@ -6,4 +6,4 @@ class test_common(unittest.TestCase):
         pass
 
     def test_import(self):
-        import macaddress
+        import l2address

@@ -1,6 +1,6 @@
 import unittest
 
-from macaddress.utils import clamp, parse_hex, per_join
+from l2address.utils import clamp, parse_hex, per_join
 
 
 class test_utils(unittest.TestCase):
