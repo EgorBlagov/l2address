@@ -34,3 +34,11 @@ class test_CustomFormatter(unittest.TestCase):
         mac = macaddress.mac_address('DEC-000000000012345', TestMacFormatter())
         self.assertEqual(mac.to_str(
             macaddress.HyphenFormatter()), '00-00-00-00-30-39')
+
+    def test_validate_invalid(self):
+        with self.assertRaisesRegex(ValueError, 'Invalid MAC address'):
+            macaddress.mac_address('dec-121212', TestMacFormatter())
+
+    def test_sum_with_custom_string(self):
+        self.assertEqual(str(macaddress.mac_address(
+            'DEC-000000000000123', TestMacFormatter()) + 'DEC-000000000000100'), 'DEC-000000000000223')
